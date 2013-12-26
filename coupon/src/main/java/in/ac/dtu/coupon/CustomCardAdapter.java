@@ -1,12 +1,18 @@
 package in.ac.dtu.coupon;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardAdapter;
@@ -61,9 +67,10 @@ public class CustomCardAdapter extends CardAdapter<Card> {
     }
 
     @Override
-    public View onViewCreated(int index, View recycled, Card item) {
+    public View onViewCreated(final int index, View recycled, Card item) {
 
         TextView couponName = (TextView) recycled.findViewById(R.id.name_coupon);
+        LinearLayout cardLayout = (LinearLayout) recycled.findViewById(R.id.card_layout);
 
 
         if (recycled == null) {
@@ -74,6 +81,31 @@ public class CustomCardAdapter extends CardAdapter<Card> {
             if(couponName != null) {
                 couponName.setText("WEBSITE : " + couponList.get(index - 1).getString("name"));
                 couponName.setTextColor(Color.parseColor("#444444"));
+                cardLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast toast = Toast.makeText(context,
+                                "Long press this card to go to website to redeem coupon",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                });
+                cardLayout.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        Uri uri = null;
+                        try {
+                            uri = Uri.parse("http://google.com/search?q=" + couponList.get(index - 1).getString("name"));
+                        } catch (JSONException e) {
+                            uri = Uri.parse("http://google.com");
+                            e.printStackTrace();
+                        }
+                        Intent webIntent = new Intent(Intent.ACTION_VIEW, uri);
+                        webIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(webIntent);
+                        return false;
+                    }
+                });
             }
 
         } catch (JSONException e) {
