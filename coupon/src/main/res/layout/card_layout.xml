@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" style="@style/card_outer">
+
+    <RelativeLayout android:id="@+id/inner_frame" style="@style/card_inner">
+
+        <RelativeLayout android:id="@+id/titleFrame" style="@style/card_title_frame">
+
+            <TextView
+                style="@style/card_content"
+                android:id="@+id/code_header"
+                android:layout_width="wrap_content"
+                android:text="Code : "
+                android:textSize="15sp"
+                android:layout_centerVertical="true" />
+
+            <TextView android:id="@android:id/title"
+                style="@style/card_title"
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@+id/code_header"
+                android:layout_alignParentLeft="false" />
+
+        </RelativeLayout>
+
+        <com.afollestad.silk.views.text.SilkTextView android:id="@android:id/content" style="@style/card_content"/>
+
+    </RelativeLayout>
+
+    <ImageView style="@style/card_shadow"/>
+
+</LinearLayout>

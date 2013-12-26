@@ -8,7 +8,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.afollestad.cardsui.Card;
+import com.afollestad.cardsui.CardAdapter;
+import com.afollestad.cardsui.CardHeader;
+import com.afollestad.cardsui.CardListView;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -66,7 +72,6 @@ public class MainActivity extends ActionBarActivity {
             String jsonString = "";
 
             try {
-                //Log.d(TAG, getActivity().getFilesDir() + "data.json");
                 File cacheFile = new File(getApplicationContext().getFilesDir(), "data.json");
 
                 BufferedReader br = new BufferedReader(new FileReader(cacheFile));
@@ -97,6 +102,24 @@ public class MainActivity extends ActionBarActivity {
             }
 
             return couponList;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<JSONObject> couponList) {
+
+            CardListView newsListView = (CardListView) findViewById(android.R.id.list);
+
+            CustomCardAdapter adapter = new CustomCardAdapter(getApplicationContext());
+                    // This sets the color displayed for card titles and header actions by default
+            adapter.add(new CardHeader("All Coupons List"));
+            try{
+                for(JSONObject couponItem : couponList) {
+                    adapter.add(new Card(couponItem.getString("code") + " @ " + couponItem.getString("name"), couponItem.getString("description")));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            newsListView.setAdapter(adapter);
         }
     }
 

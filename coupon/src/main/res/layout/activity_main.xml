@@ -6,12 +6,9 @@
     tools:context="in.ac.dtu.coupon.MainActivity"
     tools:ignore="MergeRootFrame" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Derp"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
+    <com.afollestad.cardsui.CardListView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+
 </RelativeLayout>
