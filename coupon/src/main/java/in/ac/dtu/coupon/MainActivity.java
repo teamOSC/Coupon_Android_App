@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,6 +14,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity {
@@ -45,7 +47,12 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_settings :
                 return true;
             case R.id.action_refresh :
-                new UpdateCoupons(MainActivity.this, false).execute();
+                if(Utils.isNetworkConnected(getApplicationContext())){
+                    new UpdateCoupons(MainActivity.this, false).execute();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.error_internet, Toast.LENGTH_SHORT).show();
+                }
+
                 return  true;
         }
         return super.onOptionsItemSelected(item);
@@ -65,9 +72,14 @@ public class MainActivity extends ActionBarActivity {
                 BufferedReader br = new BufferedReader(new FileReader(cacheFile));
                 jsonString = br.readLine();
 
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace();
-                new UpdateCoupons(MainActivity.this, true).execute();
+                if(Utils.isNetworkConnected(getApplicationContext())){
+                    new UpdateCoupons(MainActivity.this, true).execute();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.error_internet, Toast.LENGTH_SHORT).show();
+                }
+
             }
 
             ArrayList<JSONObject> couponList = new ArrayList<JSONObject>();

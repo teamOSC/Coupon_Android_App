@@ -46,7 +46,9 @@ public class UpdateCoupons extends AsyncTask<Void, Void, String> {
             String result = EntityUtils.toString(entity);
             return result;
         } catch (Exception e) {
-            ((Activity)context).setProgressBarIndeterminateVisibility(false);
+            if (!ranAutomatically) {
+                ((Activity)context).setProgressBarIndeterminateVisibility(false);
+            }
             Log.d("[GET REQUEST]", "Network exception", e);
             return null;
         }
