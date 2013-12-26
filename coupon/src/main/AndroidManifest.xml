@@ -3,7 +3,7 @@
     package="in.ac.dtu.coupon" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="15"
         android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.INTERNET" />
