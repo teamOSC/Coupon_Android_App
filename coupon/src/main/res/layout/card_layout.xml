@@ -11,6 +11,7 @@
                 android:id="@+id/code_header"
                 android:layout_width="wrap_content"
                 android:text="Code : "
+                android:textColor="@color/code_gray"
                 android:textSize="15sp"
                 android:layout_centerVertical="true" />
 
@@ -28,8 +29,10 @@
             android:layout_height="wrap_content"
             style="@style/card_content" />
 
-        <com.afollestad.silk.views.text.SilkTextView android:id="@android:id/content" style="@style/card_content"
-            android:layout_below="@id/name_coupon"/>
+        <com.afollestad.silk.views.text.SilkTextView
+            android:id="@android:id/content"
+            style="@style/card_content"
+            android:layout_below="@id/name_coupon" />
 
     </RelativeLayout>
 

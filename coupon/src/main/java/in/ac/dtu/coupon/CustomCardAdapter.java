@@ -12,6 +12,7 @@ import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardAdapter;
 import com.afollestad.silk.images.SilkImageManager;
 import com.afollestad.silk.views.image.SilkImageView;
+import com.afollestad.silk.views.text.SilkTextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +49,9 @@ public class CustomCardAdapter extends CardAdapter<Card> {
     @Override
     protected boolean onProcessContent(TextView content, Card card) {
         // Optional, you can modify properties of the content textview here.
+        content.setTextColor(Color.DKGRAY);
         return super.onProcessContent(content, card);
+
     }
 
     @Override
@@ -62,12 +65,17 @@ public class CustomCardAdapter extends CardAdapter<Card> {
 
         TextView couponName = (TextView) recycled.findViewById(R.id.name_coupon);
 
+
         if (recycled == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             recycled = inflater.inflate(R.layout.card_layout, null);
         }
         try{
-            if(couponName != null) couponName.setText(couponList.get(index - 1).getString("name"));
+            if(couponName != null) {
+                couponName.setText("WEBSITE : " + couponList.get(index - 1).getString("name"));
+                couponName.setTextColor(Color.parseColor("#444444"));
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
