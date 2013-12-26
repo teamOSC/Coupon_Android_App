@@ -109,12 +109,13 @@ public class MainActivity extends ActionBarActivity {
 
             CardListView newsListView = (CardListView) findViewById(android.R.id.list);
 
-            CustomCardAdapter adapter = new CustomCardAdapter(getApplicationContext());
+            CustomCardAdapter adapter = new CustomCardAdapter(getApplicationContext(), couponList);
+            Log.d(TAG, "List size = " + couponList.size());
                     // This sets the color displayed for card titles and header actions by default
             adapter.add(new CardHeader("All Coupons List"));
             try{
                 for(JSONObject couponItem : couponList) {
-                    adapter.add(new Card(couponItem.getString("code") + " @ " + couponItem.getString("name"), couponItem.getString("description")));
+                    adapter.add(new Card(couponItem.getString("code"), couponItem.getString("description")));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

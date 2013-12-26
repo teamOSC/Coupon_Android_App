@@ -1,6 +1,7 @@
 package in.ac.dtu.coupon;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
@@ -11,14 +12,24 @@ import com.afollestad.cardsui.CardAdapter;
 import com.afollestad.silk.images.SilkImageManager;
 import com.afollestad.silk.views.image.SilkImageView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 /**
  * Created by omerjerk on 26/12/13.
  */
 public class CustomCardAdapter extends CardAdapter<Card> {
 
-    public CustomCardAdapter(Context context) {
+    private ArrayList<JSONObject> couponList;
+    private Context context;
+
+    public CustomCardAdapter(Context context, ArrayList<JSONObject> couponList) {
         super(context, R.layout.card_layout); // the custom card layout is passed to the super constructor instead of every individual card
-        setAccentColorRes(17170455);
+        this.couponList = couponList;
+        this.context = context;
+        setAccentColorRes(17170451);
     }
 
     @Override
@@ -47,6 +58,19 @@ public class CustomCardAdapter extends CardAdapter<Card> {
 
     @Override
     public View onViewCreated(int index, View recycled, Card item) {
+
+        TextView couponName = (TextView) recycled.findViewById(R.id.name_coupon);
+
+        if (recycled == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            recycled = inflater.inflate(R.layout.card_layout, null);
+        }
+        try{
+            if(couponName != null) couponName.setText(couponList.get(index - 1).getString("name"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         // Optional, you can modify properties of other views that you add to the card layout that aren't the icon, title, content...
         return super.onViewCreated(index, recycled, item);
     }
