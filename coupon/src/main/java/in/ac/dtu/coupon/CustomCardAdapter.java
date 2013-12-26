@@ -1,6 +1,7 @@
 package in.ac.dtu.coupon;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
@@ -29,7 +30,7 @@ public class CustomCardAdapter extends CardAdapter<Card> {
         super(context, R.layout.card_layout); // the custom card layout is passed to the super constructor instead of every individual card
         this.couponList = couponList;
         this.context = context;
-        setAccentColorRes(17170451);
+        setAccentColor(Color.parseColor("#ff0099cc"));
     }
 
     @Override
