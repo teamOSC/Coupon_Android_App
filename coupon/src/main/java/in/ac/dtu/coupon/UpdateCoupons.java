@@ -17,6 +17,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 
+import ch.boye.httpclientandroidlib.client.cache.Resource;
+
 /**
  * Created by omerjerk on 26/12/13.
  */
@@ -74,7 +76,7 @@ public class UpdateCoupons extends AsyncTask<Void, Void, String> {
             bw = new BufferedWriter(fw);
             bw.write(r);
 
-            Toast.makeText(context, "News refreshed!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Latest Coupon codes downloaded !", Toast.LENGTH_SHORT).show();
 
         } catch (Exception e){
             e.printStackTrace();
