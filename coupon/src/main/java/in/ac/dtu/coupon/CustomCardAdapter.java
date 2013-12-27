@@ -72,7 +72,6 @@ public class CustomCardAdapter extends CardAdapter<Card> {
         TextView couponName = (TextView) recycled.findViewById(R.id.name_coupon);
         LinearLayout cardLayout = (LinearLayout) recycled.findViewById(R.id.card_layout);
 
-
         if (recycled == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             recycled = inflater.inflate(R.layout.card_layout, null);

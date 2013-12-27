@@ -1,5 +1,5 @@
 *.iml
-./local.properties
+local.properties
 .idea
 .gradle
 coupon/*iml
