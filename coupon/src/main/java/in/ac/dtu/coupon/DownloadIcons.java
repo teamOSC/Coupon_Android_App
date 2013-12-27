@@ -38,17 +38,20 @@ public class DownloadIcons extends AsyncTask <Void, Void, Void> {
         Bitmap mBitmap;
         try {
             for(JSONObject coupon : couponList) {
-                URL url = new URL(coupon.getString("url"));
-                File file = new File(context.getFilesDir() + File.separator + coupon.getString("name") + ".jpg");
-                if(!file.exists()){
-                    file.createNewFile();
-                    mBitmap = getBitmapFromURL(url);
-                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                    mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-                    mFileOutputStream = new FileOutputStream(file);
-                    mFileOutputStream.write(bytes.toByteArray());
-                    mFileOutputStream.close();
+                if(!coupon.getString("favicon").equals("NULL")) {
+                    URL url = new URL(coupon.getString("favicon"));
+                    File file = new File(context.getFilesDir() + File.separator + coupon.getString("name") + ".jpg");
+                    if(!file.exists()){
+                        file.createNewFile();
+                        mBitmap = getBitmapFromURL(url);
+                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                        mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                        mFileOutputStream = new FileOutputStream(file);
+                        mFileOutputStream.write(bytes.toByteArray());
+                        mFileOutputStream.close();
+                    }
                 }
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
