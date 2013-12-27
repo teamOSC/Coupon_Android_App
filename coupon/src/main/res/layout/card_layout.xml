@@ -9,6 +9,10 @@
 
         <RelativeLayout android:id="@+id/titleFrame" style="@style/card_title_frame">
 
+            <ImageView android:id="@android:id/icon"
+                style="@style/card_thumbnail"
+                android:background="@drawable/ic_launcher"/>
+
             <TextView
                 style="@style/card_content"
                 android:id="@+id/code_header"
