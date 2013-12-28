@@ -1,14 +1,18 @@
 package in.ac.dtu.coupon;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.afollestad.cardsui.*;
+import com.afollestad.cardsui.Card;
+import com.afollestad.cardsui.CardHeader;
+import com.afollestad.cardsui.CardListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,13 +27,21 @@ import java.util.ArrayList;
 public class MainActivity extends ActionBarActivity {
 
     private static final String TAG = "MainActivity";
+    private ArrayList<Card> cardList = new ArrayList<Card>();
+    private ArrayList<JSONObject> couponList = new ArrayList<JSONObject>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new ReadFromJson().execute();
+        new ReadFromJson() {
+            @Override
+            protected void onPostExecute(ArrayList<JSONObject> couponList) {
+                super.onPostExecute(couponList);
+                new SetIcons().execute();
+            }
+        }.execute();
     }
 
 
@@ -84,8 +96,6 @@ public class MainActivity extends ActionBarActivity {
 
             }
 
-            ArrayList<JSONObject> couponList = new ArrayList<JSONObject>();
-
             try {
                 JSONArray jsonArray = new JSONArray(jsonString);
 
@@ -112,12 +122,51 @@ public class MainActivity extends ActionBarActivity {
             adapter.add(new CardHeader("All Coupons List"));
             try{
                 for(JSONObject couponItem : couponList) {
-                    adapter.add(new Card(couponItem.getString("code"), couponItem.getString("description")));
+                    cardList.add(new Card(couponItem.getString("code"), couponItem.getString("description")));
+                    adapter.add(cardList.get(cardList.size() - 1));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             newsListView.setAdapter(adapter);
+
+        }
+    }
+
+    private class SetIcons extends AsyncTask<Void, Void, Boolean> {
+
+        File filesDir = getApplicationContext().getFilesDir();
+        File photoPath = null;
+        boolean refreshIcons = false;
+
+        @Override
+        protected Boolean doInBackground(Void... v) {
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            Bitmap bitmap = null;
+            try {
+                for(int i = 0; i < cardList.size(); ++i) {
+                    photoPath = new File(filesDir, couponList.get(i).getString("name") + ".jpg");
+                    if(!photoPath.exists() && !couponList.get(i).getString("favicon").equals("NULL")){
+                        refreshIcons = true;
+                    } else {
+                        bitmap = BitmapFactory.decodeFile(photoPath.getAbsolutePath(), options);
+                        cardList.get(i).setThumbnail(getApplicationContext(), bitmap);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return refreshIcons;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean b) {
+            if(b) {
+                new DownloadIcons(getApplicationContext(), couponList).execute();
+            }
         }
     }
 

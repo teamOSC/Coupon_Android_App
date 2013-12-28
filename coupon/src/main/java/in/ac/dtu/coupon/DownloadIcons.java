@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
  */
 public class DownloadIcons extends AsyncTask <Void, Void, Void> {
 
+    private static final String TAG = "DownloadIcons";
+
     private Context context;
     private ArrayList<JSONObject> couponList;
 
@@ -34,10 +37,12 @@ public class DownloadIcons extends AsyncTask <Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... v) {
 
-        FileOutputStream mFileOutputStream;
+        FileOutputStream mFileOutputStream = null;
         Bitmap mBitmap;
+        int i =0;
         try {
             for(JSONObject coupon : couponList) {
+                ++i;
                 if(!coupon.getString("favicon").equals("NULL")) {
                     URL url = new URL(coupon.getString("favicon"));
                     File file = new File(context.getFilesDir() + File.separator + coupon.getString("name") + ".jpg");
@@ -45,9 +50,14 @@ public class DownloadIcons extends AsyncTask <Void, Void, Void> {
                         file.createNewFile();
                         mBitmap = getBitmapFromURL(url);
                         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                        mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-                        mFileOutputStream = new FileOutputStream(file);
-                        mFileOutputStream.write(bytes.toByteArray());
+                        if(mBitmap != null) {
+
+                            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                            mFileOutputStream = new FileOutputStream(file);
+                            mFileOutputStream.write(bytes.toByteArray());
+                        } else {
+                            Log.e(TAG, "Downloaded bitmap is NULL");
+                        }
                         mFileOutputStream.close();
                     }
                 }
@@ -55,10 +65,13 @@ public class DownloadIcons extends AsyncTask <Void, Void, Void> {
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            Log.d(TAG, "JSONException and Index = " + i);
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            Log.d(TAG, "MalformedURLException and Index = " + i);
         } catch (IOException e) {
             e.printStackTrace();
+            Log.d(TAG, "IOException and Index = " + i);
         }
 
         return null;
