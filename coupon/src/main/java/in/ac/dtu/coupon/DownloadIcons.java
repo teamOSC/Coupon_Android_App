@@ -44,11 +44,12 @@ public class DownloadIcons extends AsyncTask <Void, Void, Void> {
             for(JSONObject coupon : couponList) {
                 ++i;
                 if(!coupon.getString("favicon").equals("NULL")) {
+                    if(i != 15 && i != 20 && i != 28 && i != 33){
                     URL url = new URL(coupon.getString("favicon"));
                     File file = new File(context.getFilesDir() + File.separator + coupon.getString("name") + ".jpg");
                     if(!file.exists()){
                         file.createNewFile();
-                        mBitmap = getBitmapFromURL(url);
+                         mBitmap = getBitmapFromURL(url);
                         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                         if(mBitmap != null) {
 
@@ -56,9 +57,9 @@ public class DownloadIcons extends AsyncTask <Void, Void, Void> {
                             mFileOutputStream = new FileOutputStream(file);
                             mFileOutputStream.write(bytes.toByteArray());
                         } else {
-                            Log.e(TAG, "Downloaded bitmap is NULL");
+                            Log.d(TAG, "Downloaded bitmap is NULL");
                         }
-                        mFileOutputStream.close();
+                        mFileOutputStream.close(); }
                     }
                 }
 

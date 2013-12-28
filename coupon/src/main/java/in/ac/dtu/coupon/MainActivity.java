@@ -150,7 +150,7 @@ public class MainActivity extends ActionBarActivity {
                     photoPath = new File(filesDir, couponList.get(i).getString("name") + ".jpg");
                     if(!photoPath.exists() && !couponList.get(i).getString("favicon").equals("NULL")){
                         refreshIcons = true;
-                    } else {
+                    } else if(photoPath.exists()){
                         bitmap = BitmapFactory.decodeFile(photoPath.getAbsolutePath(), options);
                         cardList.get(i).setThumbnail(getApplicationContext(), bitmap);
                     }
