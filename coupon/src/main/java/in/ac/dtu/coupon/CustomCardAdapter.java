@@ -94,7 +94,7 @@ public class CustomCardAdapter extends CardAdapter<Card> {
                     public boolean onLongClick(View view) {
                         Uri uri = null;
                         try {
-                            uri = Uri.parse("http://google.com/search?q=" + couponList.get(index - 1).getString("name"));
+                            uri = Uri.parse(couponList.get(index - 1).getString("url"));
                         } catch (JSONException e) {
                             uri = Uri.parse("http://google.com");
                             e.printStackTrace();
