@@ -3,6 +3,7 @@ package in.ac.dtu.coupon;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -40,6 +41,23 @@ public class CustomCardAdapter extends CardAdapter<Card> {
         setAccentColor(Color.parseColor("#ff0099cc"));
     }
 
+    public Drawable getVendorIcon (String vendorName) {
+        vendorName = vendorName.toLowerCase();
+        int vendorIconId = context.getResources().getIdentifier(vendorName, "drawable", "in.ac.dtu.coupon");
+        Drawable vendorIcon = context.getResources().getDrawable(vendorIconId);
+        return vendorIcon;
+    }
+
+    public boolean haveVendorIcon (String vendorName) {
+        String[] vendorArray = context.getResources().getStringArray(R.array.vendors);
+        for (int i = 0; i < vendorArray.length; i++) {
+            if (vendorArray[i].equalsIgnoreCase(vendorName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     protected boolean onProcessThumbnail(ImageView icon, Card card) {
         // Optional, you can modify properties of the icon ImageView here.
@@ -71,6 +89,7 @@ public class CustomCardAdapter extends CardAdapter<Card> {
 
         TextView couponName = (TextView) recycled.findViewById(R.id.name_coupon);
         LinearLayout cardLayout = (LinearLayout) recycled.findViewById(R.id.card_layout);
+        ImageView vendorIcon = (ImageView) recycled.findViewById(R.id.vendor_icon);
 
         if (recycled == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -105,7 +124,14 @@ public class CustomCardAdapter extends CardAdapter<Card> {
                         return false;
                     }
                 });
+
+                String vendorName = couponList.get(index - 1).getString("name");
+                if (haveVendorIcon(vendorName)) {
+                    vendorIcon.setImageDrawable(getVendorIcon(vendorName));
+                }
             }
+
+
 
         } catch (JSONException e) {
             e.printStackTrace();

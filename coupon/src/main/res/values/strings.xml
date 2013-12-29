@@ -7,4 +7,22 @@
     <string name="action_refresh">Refresh</string>
     <string name="error_internet">Please turn on your internet connection!</string>
 
+    <string-array name="vendors">
+        <item>craftsvilla</item>
+        <item>ebay</item>
+        <item>firstcry</item>
+        <item>goibibo</item>
+        <item>homeshop18</item>
+        <item>indiatimes</item>
+        <item>jabong</item>
+        <item>koovs</item>
+        <item>lenskart</item>
+        <item>myntra</item>
+        <item>pepperfry</item>
+        <item>rediff</item>
+        <item>snapdeal</item>
+        <item>starcj</item>
+        <item>yebhi</item>
+    </string-array>
+
 </resources>
