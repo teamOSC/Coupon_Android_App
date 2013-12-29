@@ -51,7 +51,13 @@ public class MainActivity extends ActionBarActivity {
                 return true;
             case R.id.action_refresh :
                 if(Utils.isNetworkConnected(getApplicationContext())){
-                    new UpdateCoupons(MainActivity.this, false).execute();
+                    new UpdateCoupons(MainActivity.this, false) {
+                        @Override
+                        protected void onPostExecute(String result) {
+                            super.onPostExecute(result);
+                            new ReadFromJson().execute();
+                        }
+                    }.execute();
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.error_internet, Toast.LENGTH_SHORT).show();
                 }
@@ -77,7 +83,13 @@ public class MainActivity extends ActionBarActivity {
             } catch (IOException e) {
                 e.printStackTrace();
                 if(Utils.isNetworkConnected(getApplicationContext())){
-                    new UpdateCoupons(MainActivity.this, true).execute();
+                    new UpdateCoupons(MainActivity.this, true) {
+                        @Override
+                        protected void onPostExecute(String result) {
+                            super.onPostExecute(result);
+                            new ReadFromJson().execute();
+                        }
+                    }.execute();
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.error_internet, Toast.LENGTH_SHORT).show();
                 }
