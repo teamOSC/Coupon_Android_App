@@ -97,7 +97,8 @@ public class CustomCardAdapter extends CardAdapter<Card> {
         }
         try{
             if(couponName != null) {
-                couponName.setText("WEBSITE : " + couponList.get(index - 1).getString("name"));
+                String vendorName = couponList.get(index - 1).getString("name");
+                couponName.setText("WEBSITE : " + vendorName);
                 couponName.setTextColor(Color.parseColor("#444444"));
                 cardLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -125,9 +126,11 @@ public class CustomCardAdapter extends CardAdapter<Card> {
                     }
                 });
 
-                String vendorName = couponList.get(index - 1).getString("name");
+
                 if (haveVendorIcon(vendorName)) {
                     vendorIcon.setImageDrawable(getVendorIcon(vendorName));
+                } else {
+                    vendorIcon.setImageDrawable(getVendorIcon("none"));
                 }
             }
 
