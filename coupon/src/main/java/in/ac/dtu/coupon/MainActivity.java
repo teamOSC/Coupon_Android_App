@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.afollestad.cardsui.*;
@@ -129,7 +131,15 @@ public class MainActivity extends ActionBarActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            newsListView.setAdapter(adapter);
+
+            if(couponList.size() != 0){
+                Log.d(TAG, "Inside onPostExecute()");
+                newsListView.setAdapter(adapter);
+                ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
+                mProgressBar.setVisibility(View.GONE);
+                newsListView.setVisibility(View.VISIBLE);
+            }
+
         }
     }
 

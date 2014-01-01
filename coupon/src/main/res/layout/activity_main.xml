@@ -3,12 +3,20 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.ac.dtu.coupon.MainActivity"
-    tools:ignore="MergeRootFrame" >
+    tools:context="in.ac.dtu.coupon.MainActivity" >
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="visible"/>
 
     <com.afollestad.cardsui.CardListView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_height="fill_parent"
+        android:visibility="gone"/>
 
 </RelativeLayout>
