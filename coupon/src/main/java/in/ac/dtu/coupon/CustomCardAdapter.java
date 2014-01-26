@@ -5,11 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,9 +14,6 @@ import android.widget.Toast;
 
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardAdapter;
-import com.afollestad.silk.images.SilkImageManager;
-import com.afollestad.silk.views.image.SilkImageView;
-import com.afollestad.silk.views.text.SilkTextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
