@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.afollestad.cardsui.Card;
 import com.afollestad.cardsui.CardHeader;
 import com.afollestad.cardsui.CardListView;
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -26,6 +25,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import in.tosc.coupon.R;
 
 public class MainActivity extends ActionBarActivity {
 

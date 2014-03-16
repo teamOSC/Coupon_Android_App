@@ -20,6 +20,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import in.tosc.coupon.R;
+
 /**
  * Created by omerjerk on 26/12/13.
  */
@@ -37,7 +39,7 @@ public class CustomCardAdapter extends CardAdapter<Card> {
 
     public Drawable getVendorIcon (String vendorName) {
         vendorName = vendorName.toLowerCase();
-        int vendorIconId = context.getResources().getIdentifier(vendorName, "drawable", "in.ac.dtu.coupon");
+        int vendorIconId = context.getResources().getIdentifier(vendorName, "drawable", "in.tosc.coupon");
         Drawable vendorIcon = context.getResources().getDrawable(vendorIconId);
         return vendorIcon;
     }
