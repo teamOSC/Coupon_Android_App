@@ -43,7 +43,7 @@ public class UpdateCoupons extends AsyncTask<Void, Void, String> {
 
         try {
             HttpClient httpclient = new DefaultHttpClient();
-            HttpResponse response = httpclient.execute(new HttpGet("http://springboard.championswimmer.in/sauravtom/coupon.txt"));
+            HttpResponse response = httpclient.execute(new HttpGet("http://tosc.in/sauravtom/coupon.txt"));
             HttpEntity entity = response.getEntity();
             String result = EntityUtils.toString(entity);
             return result;
