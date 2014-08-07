@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentPanel"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/topPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/titleDividerTop"
+            android:layout_width="match_parent"
+            android:layout_height="2dip"
+            android:visibility="gone"
+            android:background="@android:color/holo_blue_dark" />
+
+        <LinearLayout
+            android:id="@+id/title_template"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|start"
+            android:minHeight="64dip"
+            android:paddingLeft="16dip"
+            android:paddingRight="16dip">
+
+            <ImageView
+                android:id="@android:id/icon"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:paddingEnd="8dip"
+                android:src="@null"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@android:id/title"
+                style="?android:attr/windowTitleStyle"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/titleDivider"
+            android:layout_width="match_parent"
+            android:layout_height="2dip"
+            android:background="@android:color/black" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:id="@android:id/primary"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@android:id/message"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dip"
+                android:paddingRight="16dip"
+                android:lineSpacingMultiplier="1.4"
+                android:paddingTop="16dip"
+                android:paddingBottom="8dip"
+                android:fontFamily="sans-serif-light" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@android:id/candidatesArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:orientation="vertical"
+        android:divider="?android:attr/dividerHorizontal"
+        android:showDividers="beginning"
+        android:dividerPadding="0dip">
+
+        <LinearLayout
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:measureWithLargestChild="true">
+
+            <Button
+                android:id="@android:id/button2"
+                android:layout_width="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="1"
+                android:maxLines="2"
+                style="?android:attr/buttonBarButtonStyle"
+                android:textSize="14sp"
+                android:layout_height="48dp"
+                android:text="@android:string/cancel" />
+
+            <Button
+                android:id="@android:id/button3"
+                android:layout_width="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="1"
+                android:maxLines="2"
+                style="?android:attr/buttonBarButtonStyle"
+                android:textSize="14sp"
+                android:layout_height="48dp" />
+
+            <Button
+                android:id="@android:id/button1"
+                android:layout_width="wrap_content"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:minHeight="48dp"
+                style="?android:attr/buttonBarButtonStyle"
+                android:textSize="14sp"
+                android:layout_height="wrap_content"
+                android:text="@android:string/ok" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
