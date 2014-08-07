@@ -2,10 +2,10 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/card_outer"
+    style="@style/card_outer_frame"
     android:id="@+id/card_layout">
 
-    <RelativeLayout android:id="@+id/inner_frame" style="@style/card_inner">
+    <RelativeLayout android:id="@+id/inner_frame" style="@style/card_inner_frame">
 
         <RelativeLayout
             android:id="@+id/titleFrame"
@@ -50,7 +50,5 @@
             android:layout_below="@id/name_coupon" />
 
     </RelativeLayout>
-
-    <ImageView style="@style/card_shadow"/>
 
 </LinearLayout>
