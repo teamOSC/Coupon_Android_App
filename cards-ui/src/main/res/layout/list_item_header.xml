@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/card_header_outer">
+
+    <LinearLayout
+        android:id="@android:id/widget_frame"
+        style="@style/card_header_inner">
+
+        <TextView
+            android:id="@android:id/title"
+            style="@style/card_header_title" />
+
+        <TextView
+            android:id="@android:id/content"
+            style="@style/card_header_summary" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@android:id/button1"
+        style="@style/header_button" />
+
+</RelativeLayout>
