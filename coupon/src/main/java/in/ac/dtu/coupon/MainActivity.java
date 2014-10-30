@@ -32,8 +32,8 @@ public class MainActivity extends ActionBarActivity {
     private static final String TAG = "MainActivity";
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private CustomCardAdapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,19 +137,21 @@ public class MainActivity extends ActionBarActivity {
             mRecyclerView.setHasFixedSize(true);
             // use a linear layout manager
             mLayoutManager = new LinearLayoutManager(MainActivity.this);
+            mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
             mRecyclerView.setLayoutManager(mLayoutManager);
 
-            CustomCardAdapter adapter = new CustomCardAdapter(getApplicationContext(), couponList);
+            mAdapter = new CustomCardAdapter(getApplicationContext(), couponList);
             Log.d(TAG, "List size = " + couponList.size());
             // This sets the color displayed for card titles and header actions by default
 
-            if (couponList.size() != 0) {
+            //if (couponList.size() != 0) {
                 Log.d(TAG, "Inside onPostExecute()");
-                mRecyclerView.setAdapter(adapter);
+                mRecyclerView.setAdapter(mAdapter);
                 ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
                 mProgressBar.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
-            }
+            //}
 
         }
     }

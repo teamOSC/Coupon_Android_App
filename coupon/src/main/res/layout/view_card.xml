@@ -15,7 +15,7 @@
         android:layout_height="match_parent" >
 
         <LinearLayout
-            android:layout_width="0"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:orientation="vertical" >
@@ -35,7 +35,7 @@
 
         <ImageView
             android:id="@+id/vendor_icon"
-            android:layout_width="0"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
 

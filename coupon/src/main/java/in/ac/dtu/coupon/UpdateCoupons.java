@@ -17,8 +17,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 
-import ch.boye.httpclientandroidlib.client.cache.Resource;
-
 /**
  * Created by omerjerk on 26/12/13.
  */
