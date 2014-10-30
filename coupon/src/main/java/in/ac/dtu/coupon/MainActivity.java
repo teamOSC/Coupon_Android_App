@@ -138,6 +138,7 @@ public class MainActivity extends ActionBarActivity {
             // use a linear layout manager
             mLayoutManager = new LinearLayoutManager(MainActivity.this);
             mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            mLayoutManager.scrollToPosition(0); // TODO: Remove this when preview SDK has abstract method.
 
             mRecyclerView.setLayoutManager(mLayoutManager);
 

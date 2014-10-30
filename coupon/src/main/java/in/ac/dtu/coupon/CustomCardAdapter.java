@@ -102,9 +102,11 @@ public class CustomCardAdapter extends RecyclerView.Adapter<CustomCardAdapter.Vi
 
 
             if (haveVendorIcon(vendorName)) {
-                holder.vendorIcon.setImageDrawable(getVendorIcon(vendorName));
-            } else {
-                holder.vendorIcon.setImageDrawable(getVendorIcon("none"));
+                try {
+                    holder.vendorIcon.setImageDrawable(getVendorIcon(vendorName));
+                } catch (Exception e) {
+                    //Nothing to do for now
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
