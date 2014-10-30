@@ -3,6 +3,8 @@ package in.ac.dtu.coupon;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,10 +12,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.afollestad.cardsui.Card;
-import com.afollestad.cardsui.CardHeader;
-import com.afollestad.cardsui.CardListView;
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -27,16 +25,22 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import in.tosc.coupon.R;
+
 public class MainActivity extends ActionBarActivity {
 
     private static final String TAG = "MainActivity";
+
+    private RecyclerView mRecyclerView;
+    private CustomCardAdapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AdView adView = (AdView)this.findViewById(R.id.adView);
+        AdView adView = (AdView) this.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
@@ -46,7 +50,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -57,11 +61,11 @@ public class MainActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        switch(item.getItemId()) {
-            case R.id.action_settings :
+        switch (item.getItemId()) {
+            case R.id.action_settings:
                 return true;
-            case R.id.action_refresh :
-                if(Utils.isNetworkConnected(getApplicationContext())){
+            case R.id.action_refresh:
+                if (Utils.isNetworkConnected(getApplicationContext())) {
                     new UpdateCoupons(MainActivity.this, false) {
                         @Override
                         protected void onPostExecute(String result) {
@@ -73,7 +77,7 @@ public class MainActivity extends ActionBarActivity {
                     Toast.makeText(getApplicationContext(), R.string.error_internet, Toast.LENGTH_SHORT).show();
                 }
 
-                return  true;
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -93,7 +97,7 @@ public class MainActivity extends ActionBarActivity {
 
             } catch (IOException e) {
                 e.printStackTrace();
-                if(Utils.isNetworkConnected(getApplicationContext())){
+                if (Utils.isNetworkConnected(getApplicationContext())) {
                     new UpdateCoupons(MainActivity.this, true) {
                         @Override
                         protected void onPostExecute(String result) {
@@ -127,27 +131,28 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(ArrayList<JSONObject> couponList) {
 
-            CardListView newsListView = (CardListView) findViewById(android.R.id.list);
+            mRecyclerView = (RecyclerView) findViewById(R.id.list_main);
+            // use this setting to improve performance if you know that changes
+            // in content do not change the layout size of the RecyclerView
+            mRecyclerView.setHasFixedSize(true);
+            // use a linear layout manager
+            mLayoutManager = new LinearLayoutManager(MainActivity.this);
+            mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            mLayoutManager.scrollToPosition(0); // TODO: Remove this when preview SDK has abstract method.
 
-            CustomCardAdapter adapter = new CustomCardAdapter(getApplicationContext(), couponList);
+            mRecyclerView.setLayoutManager(mLayoutManager);
+
+            mAdapter = new CustomCardAdapter(getApplicationContext(), couponList);
             Log.d(TAG, "List size = " + couponList.size());
-                    // This sets the color displayed for card titles and header actions by default
-            adapter.add(new CardHeader("All Coupons List"));
-            try{
-                for(JSONObject couponItem : couponList) {
-                    adapter.add(new Card(couponItem.getString("code"), couponItem.getString("description")));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            // This sets the color displayed for card titles and header actions by default
 
-            if(couponList.size() != 0){
+            //if (couponList.size() != 0) {
                 Log.d(TAG, "Inside onPostExecute()");
-                newsListView.setAdapter(adapter);
+                mRecyclerView.setAdapter(mAdapter);
                 ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
                 mProgressBar.setVisibility(View.GONE);
-                newsListView.setVisibility(View.VISIBLE);
-            }
+                mRecyclerView.setVisibility(View.VISIBLE);
+            //}
 
         }
     }
