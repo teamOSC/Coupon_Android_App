@@ -30,7 +30,7 @@ public class CustomCardAdapter extends RecyclerView.Adapter<CustomCardAdapter.Vi
     private Context context;
     private LayoutInflater mInflater;
 
-    public CustomCardAdapter(ArrayList<JSONObject> couponList, Context context) {
+    public CustomCardAdapter( Context context, ArrayList<JSONObject> couponList) {
         this.couponList = couponList;
         this.context = context;
         mInflater = LayoutInflater.from(context);
