@@ -74,6 +74,7 @@ public class CustomCardAdapter extends RecyclerView.Adapter<CustomCardAdapter.Vi
             String vendorName = couponList.get(position).getString("name");
             holder.couponName.setText("WEBSITE : " + vendorName);
             holder.couponName.setTextColor(Color.parseColor("#444444"));
+            holder.couponDescription.setText(couponList.get(position).getString("description"));
             holder.root.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
