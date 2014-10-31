@@ -29,7 +29,7 @@ import in.tosc.coupon.R;
 
 public class MainActivity extends ActionBarActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "CouponsActivity";
 
     private RecyclerView mRecyclerView;
     private CustomCardAdapter mAdapter;
@@ -43,6 +43,18 @@ public class MainActivity extends ActionBarActivity {
         AdView adView = (AdView) this.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.list_main);
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        Log.d(TAG, "Layout manager set");
+        mLayoutManager.scrollToPosition(1); // TODO: Remove this when preview SDK has abstract method.
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
 
         new ReadFromJson().execute();
     }
@@ -130,29 +142,21 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(ArrayList<JSONObject> couponList) {
+            Log.d(TAG, "Inside onPostExecute()");
 
-            mRecyclerView = (RecyclerView) findViewById(R.id.list_main);
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            mRecyclerView.setHasFixedSize(true);
-            // use a linear layout manager
-            mLayoutManager = new LinearLayoutManager(MainActivity.this);
-            mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-            mLayoutManager.scrollToPosition(0); // TODO: Remove this when preview SDK has abstract method.
-
-            mRecyclerView.setLayoutManager(mLayoutManager);
 
             mAdapter = new CustomCardAdapter(getApplicationContext(), couponList);
             Log.d(TAG, "List size = " + couponList.size());
             // This sets the color displayed for card titles and header actions by default
 
-            //if (couponList.size() != 0) {
+            if (couponList.size() > 0) {
                 Log.d(TAG, "Inside onPostExecute()");
+
                 mRecyclerView.setAdapter(mAdapter);
                 ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
                 mProgressBar.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
-            //}
+            }
 
         }
     }

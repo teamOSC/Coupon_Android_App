@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context="in.ac.dtu.coupon.MainActivity" >
 
-    <com.google.android.gms.ads.AdView android:id="@+id/adView"
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         ads:adUnitId="a152e4b401d1d9d"
@@ -22,10 +23,12 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_main"
-        android:layout_below="@id/adView"
         android:scrollbars="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@id/adView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:visibility="invisible" />
 
 </RelativeLayout>
